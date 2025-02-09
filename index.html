@@ -1,22 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>HTML</title>
-  
-  <!-- HTML -->
-  
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <title>Personal Portfolio</title>
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+        body{
+            background-color: #1f1f1f;
+            color:white;
+            margin: 0;
+            padding: 0;
+            font-family: "Raleway", serif;   
+        }
+        #navbar{
+            width: 100%;
+            height: 40px;
+            background-color: black;
+            display: flex;
+        }
+        .list{
+            margin: 15px 10px 0 auto;
+            display: flex;
+            list-style-type: none;
+        }
+        .list-item{
+            padding-left: 5px;
+            font-size: small;
+        }
+        .link{
+            color: white;
+            text-decoration: none;
+            transition: 0.3s all ease-in-out;
+        }
+        .link:hover{
+            transform: scale(1.1);
+            color: crimson;
+        }
+        #title{
+          font-size:medium;
+          padding-left: 10px;
+        }
+        .hamburger{
+            display: none;
+            flex-direction: column;
+            margin-left: auto;
+            margin-right: 10px;
+            margin-top: 6px;
+        }
+        .bar{
+            width: 30px;
+            height: 3px;
+            border-radius: 5px;
+            margin-top: 5px;
+            background-color: white;
+            transition: 0.5s all ease-in-out;
+        }
+        .bar:nth-child(2){
+            background-color: rgb(220, 20, 60);
+        }
+        #img-div{
+            padding: 50px;
+            display: flex;
+            align-items: left;
+            justify-content: left;
+        }
+        #img-div img{
+         border-radius: 50%;
+        }
+        #info{
+            margin-left: 100px;
+            margin-top: 50px;
+        }
+        #info h1{
+            font-size: 50px;
+        }
+        #info p{
+            font-size: 25px;
+        }
+        .mark{
+            color: crimson;
+        }
+        #main{
+            display: flex;
+        }
+        section{
+            height: auto;
+            padding: 10px;
+        }
+        #home{
+            margin-top: 50px;
+            padding: 10px;
+            height: 80vh;
+        }
+        #links{
+            display: flex;
+            justify-content: left;
+            align-items: left;
+            margin-top: 25px;
+        }
+        #map{
+        width: 100%;
+        height: 300px;
+        margin-top: 10px;
+        }
+        .icon-div{
+            width: 35px;
+            height: 35px;
+            padding: 1px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: x-large;
+            margin-left: 5px;
+            border: 1px solid crimson;
+            color: crimson;
+            transition: 0.5s all ease-in-out;
+        }
+        .icon-div:hover{
+            background-color: crimson;
+            box-shadow: 0 0 15px crimson;
+            color: #1f1f1f;
+        }
+        .header{
+            color: crimson;
+            font-size: xx-large;
+            text-align: center;
+        }
+        #about p{
+          text-align: center;  
+        }
+        progress{
+            width: 100%;
+            appearance: none;
+        }
+        ::-webkit-progress-bar{
+            background-color: black;
+            border-radius: 3px;
+        }
+        ::-webkit-progress-value{
+            background-color: crimson;
+            border-radius: 3px;
+        }
+        .Achivements{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+        }
+        .certi{
+            width: 350px;
+            height: 300px;
+            border: 1px solid crimson;
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: 5px;
+            transition: 0.5s all ease-in-out;
+        }
+        #message{
+            width: 100%;
+        }
+        .input{
+            box-sizing: border-box;
+            width: 100%;
+            height: 35px;
+            padding: 10px;
+            margin-top: 5px;
+            outline: none;
+            background-color:white;
+            border: none;
+            border-radius: 20px;
+            transition: 0.5s all ease-in-out;
+        }
+        .input:hover{
+            background-color: crimson;
+            box-shadow: 0 0 10px crimson;
+        }
+        #bn{
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background-color: crimson;
+        }
+        ::placeholder{
+            color: black;
+        }
+        .head{
+            text-align: center;
+        }
+        .sub{
+            color: grey;
+            text-align: center;
+        }
+        #copy{
+            text-align: center;
+        }
+        @media (max-width:678px) {
+           .certi{
+           width: 100%;
+           height: auto;
+           box-sizing: border-box;
+           }
+           .Achivements{
+            flex-direction: column;
+            margin-left: 0;
+            }
+            #home{
+                margin-top: 0;
+                height: 80vh;
+            }
+            #links{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+            #main{
+            display: flex;
+            flex-direction: column;
+         }
+         #info p{
+            font-size: 20px;
+        }
+            #info{
+                margin: auto;
+                text-align: center;
+            }
+            #info h1{
+            font-size: xx-large;
+        }
+            #img-div{
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            }
+            #img-div img{
+                width: 230px;
+                height: 230px;
+            }
+            .list{
+                position: absolute;
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                height: 140px;
+                box-sizing: border-box;
+                background-color:rgb(220,20,60);
+                margin-top: 40px;
+                animation: 0.5s fade;
+            }
+            @keyframes fade {
+                0%{
+                    opacity: 0;
+                }
+                100%{
+                    opacity: 1;
+                }
+            }
+            .list-item{
+                margin-top: 10px;
+                padding: 0;
+            }
+            .hamburger{
+                display: flex;
+                margin-top: 6px;
+            }
+            .active .bar:nth-child(2){
+                display: none;
+            } 
+            .active .bar:nth-child(1){
+                margin-top: 10px;
+                transform: rotate(-45deg) translateY(5px);
+                background-color: crimson;
+            }
+            .active .bar:nth-child(3){
+                transform: rotate(45deg) translateY(-6px);
+            }
+            .show{
+            display: flex;
+           }
+        }
+    </style>
 </head>
-
 <body>
-  <p>Hi!</p>
-  <!-- Project -->
-  <script src="main.js"></script>
+    <header>
+        <nav id="navbar">
+            <h1 id ="title">Personal portfolio</h1>
+            <ol class="list">
+                <li class="list-item"><a href="#home" class="link">Home</a></li>
+                <li class="list-item"><a href="#about" class="link">About</a></li>
+                <li class="list-item"><a href="#skills" class="link">Skills</a></li>
+                <li class="list-item"><a href="#achive" class="link">Achivements</a></li>
+                <li class="list-item"><a href="#contact" class="link">Contact us</a></li>
+            </ol>
+            <div class="hamburger"onclick ="toggle()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+    </header>
+    <section id ="home">
+    <div id ="main">
+    <div id ="img-div">
+        <img src="https://i.ibb.co/DH4t9TZN/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png" alt="png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail" border="0">
+    </div>
+    <div id ="info">
+    <h1>Hi It's <span class ="mark">Vidhyatharan</span></h1>
+    <p>I'm a <span class ="mark"id ="text">Website developer</span></p>
+    <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo consequuntur officiis iure laborum ea possimus facilis iusto, aperiam explicabo quibusdam.</span>
+    <div id ="links">
+     <div class ="icon-div"><span class ="fab fa-github icon"></span></div>
+     <div class ="icon-div"><span class ="fab fa-instagram icon"></span></div>
+     <div class ="icon-div"><span class ="fab fa-facebook icon"></span></div>
+     <div class ="icon-div"><span class ="fab fa-linkedin icon"></span></div>
+    </div>
+</div>
+</div>
+    </section>
+    <section id ="about">
+        <h1 class ="header">About</h1>
+        <p>Hi, I'm Vidhyatharan, a passionate web developer and tech enthusiast based in Tamil Nadu, India. I'm currently in grade 9 and have a strong interest in creating web applications. Over the years, I've gained hands-on experience with HTML, CSS, JavaScript, Bootstrap,jQuery,Sass, React and Python. I'm also familiar with tools like Plotly and Fireworks.js for adding dynamic visual elements to my projects. In addition to web development, I enjoy working on challenging projects, like building a blog platform, developing a personal productivity dashboard, and even creating a music app named "Atom Music." I prefer using JavaScript libraries to simplify complex tasks, and I have a knack for creating unique UI designs. Apart from coding, I'm also exploring other areas such as Python for building applications like a password manager and a quiz app. I'm constantly learning and keeping up with new technologies, and I'm excited about future projects like a YouTube clone and multiplayer JavaScript games. Outside of tech, I love photography, and I have a Nikon DSLR camera that I enjoy using to capture moments.</p>
+    </section>
+    <section id ="skills">
+        <h1 class ="header">Skills</h1>
+        <p class ="small">      
+        <span class ="fab fa-html5"></span> Html</p>
+        <progress value ="100"min ="0"max ="100"></progress>
+        <br>
+        <p class ="small"><span class ="fab fa-css3-alt"></span> Css</p>
+        <progress value ="95"min ="0"max ="100"></progress>
+        <br>
+        <p class ="small"><span class ="fab fa-js"></span> JavaScript</p>
+        <progress value ="80"min ="0"max ="100"></progress>
+        <br>
+        <p class ="small"><span class ="fab fa-bootstrap"></span> Bootstrap</p>
+        <progress value ="100"min ="0"max ="100"></progress>
+        <br>
+        <p class ="small"><span class ="fab fa-html5"></span> jquery</p>
+        <progress value ="80"min ="0"max ="100"></progress>
+        <br>
+        <p class ="small"><span class ="fab fa-sass"></span> Sass</p>
+        <progress value ="50"min ="0"max ="100"></progress>
+        <br>
+        <p class ="small"><span class ="fab fa-python"></span> Python</p>
+        <progress value ="100"min ="0"max ="100"></progress>
+        <br>
+        <p class ="small"><span class ="fab fa-react"></span> React</p>
+        <progress value ="90"min ="0"max ="100"></progress>
+    </section>
+    <section id ="achive">
+    <h1 class ="header">Achivements</h1>
+    <div class ="Achivements">
+        <div class ="certi">
+        <p class ="logo"style ="color:crimson;font-size:40px;text-align:center;"><span class ="fab fa-html5"></span></p> 
+         <h2 class ="heading"style ="text-align:center">Html certified</h2>
+         <p class ="small"style ="font-size:small;text-align:center;">Proficient in using semantic HTML tags, forms, tables, lists, and multimedia elements. Knowledgeable in HTML5 elements, attributes, SEO best practices, and accessibility features.</p>
+        </div>
+        <div class ="certi">
+           <p class ="logo"style ="color:crimson;font-size:40px;text-align:center;"><span class ="fab fa-css3-alt"></span></p> 
+           <h2 class ="heading"style ="color:white; text-align:center">Certified in CSS</h2>
+           <p class ="small"style ="font-size:small;text-align:center;">Skilled in writing and maintaining CSS for layouts using Flexbox and Grid, and proficient with CSS preprocessors. Experienced with advanced selectors, animations, transitions, and responsive design techniques. </p>  
+        </div>
+        <div class ="certi">
+           <p class ="logo"style ="color:crimson;font-size:40px;text-align:center;"><span class ="fab fa-js"></span></p> 
+           <h2 class ="heading"style ="color:white; text-align:center">Certified in JavaScript (Basic)</h2>
+           <p class ="small"style ="font-size:small;text-align:center;">Understands core JavaScript concepts including variables, data types, loops, and DOM manipulation. Familiar with ES6+ features and capable of creating interactive web elements.        </p>  
+        </div>
+       </div>
+       <div class ="Achivements">
+           <div class ="certi">
+               <p class ="logo"style ="color:crimson;font-size:40px;text-align:center;"><span class ="fab fa-js"></span></p> 
+               <h2 class ="heading"style ="color:white; text-align:center">Certified in JavaScript (Intermediate)</h2>
+               <p class ="small"style ="font-size:small;text-align:center;">Proficient in object-oriented programming, asynchronous programming using async/await, and web APIs. Experienced in debugging and using JavaScript frameworks like React, Angular, or Vue.js.
+               </p>  
+            </div>
+            <div class ="certi">
+               <p class ="logo"style ="color:crimson;font-size:40px;text-align:center;"><span class ="fab fa-html5"></span>/<span class ="fab fa-css3-alt"></span></p> 
+               <h2 class ="heading"style ="color:white; text-align:center">Certified in Responsive Web Design</h2>
+               <p class ="small"style ="font-size:small;text-align:center;">Skilled in using media queries for responsive layouts and mobile-first design principles. Proficient with CSS frameworks and experienced in optimizing websites for various devices and browsers.</p>  
+            </div>
+            <div class ="certi">
+               <p class ="logo"style ="color:crimson;font-size:40px;text-align:center;"><span class ="fab fa-js"></span></p> 
+               <h2 class ="heading"style ="color:white; text-align:center"> Certified in JavaScript Algorithms and Data Structures</h2>
+               <p class ="small"style ="font-size:small;text-align:center;">Proficient in writing algorithms (searching, sorting) and understanding data structures like arrays, linked lists, and trees. Knowledgeable in algorithm complexity, recursion, and optimization techniques.</p>  
+            </div>            
+          </div>  
+          <div class ="Achivements">
+            <div class ="certi">
+                <p class ="logo"style ="color:crimson;font-size:40px;text-align:center;"><span class ="fab fa-html5"></span></p> 
+                <h2 class ="heading"style ="color:white; text-align:center">Mastering HTML 5</h2>
+                <p class ="small"style ="font-size:small;text-align:center;">Mastered all concepts and tags.Like,drag drop feauture,address tag,kbd tag,code tag,cite tag,colg tag,address tag,article tag,aside tag,bdi tag and more on...</p>  
+             </div>
+             <div class ="certi">
+                <p class ="logo"style ="color:crimson;font-size:40px;text-align:center;"><span class ="fab fa-html5"></span> / <span class ="fab fa-css3-alt"></span> / <span class ="fab fa-js"></span></p> 
+                <h2 class ="heading"style ="color:white; text-align:center">Certified in web development</h2>
+                <p class ="small"style ="font-size:small;text-align:center;">Skilled in using media queries for responsive layouts and mobile-first design principles. Proficient with CSS frameworks and experienced in optimizing websites for various devices and browsers.has knowledge in algorithms and data structures in js</p>  
+             </div>
+             <div class ="certi">
+                <p class ="logo"style ="color:crimson;font-size:40px;text-align:center;"><span class ="fab fa-python"></span></p> 
+                <h2 class ="heading"style ="color:white; text-align:center"> Python</h2>
+                <p class ="small"style ="font-size:small;text-align:center;">Certified in all concepts and techniques of py except complex libraries</p>  
+             </div>            
+           </div>                 
+    </section>    
+    <section id ="contact">
+    <h1 class ="header">Contact us</h1>
+    <div id ="message">
+        <form id ="form">
+      <input type="text"placeholder ="Name"id ="no"class ="input">
+      <input type="text"placeholder ="Email"id ="email"class ="input">
+      <input type="text"id ="number"placeholder ="Ph no"class ="input">
+      <textarea placeholder ="Message over here"class ="input"></textarea>
+      <input type ="submit" id ="bn"value ="Send">
+    </form>
+       </div>  
+    </section> 
+    <footer id ="con">
+        <div id ="contact">
+            <h1 class ="head">For contact</h1>
+            <p class ="sub">91+000039390</p>
+            <p class ="sub">Succesweb@gamil.com</p>
+          </div>
+          <div id ="map">
+        
+          </div>
+      
+          <div id ="copy">
+            @2025 Personal portfolio all rights reserved
+        </div>    
+    </footer>
+   
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+      var map = L.map('map').setView([12.505, -0.09], 13);
+       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+       
+       L.marker([51.5, -0.09]).addTo(map)
+           .bindPopup('over here!')
+           .openPopup();
+    </script>        
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.8.0/dist/email.min.js"></script>
+<script>
+    emailjs.init('LahBVtZ10PCDWMQCq');
+
+    document.getElementById('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const btn = document.getElementById('bn');
+        btn.value = 'Sending...';
+
+        const serviceID = 'default_service';
+        const templateID = 'template_a3rk9mo';
+
+        emailjs.sendForm(serviceID, templateID, this)
+        .then(() => {
+            alert('Sent!');
+            btn.value = 'Submit';
+        }, (err) => {
+            alert(JSON.stringify(err));
+            btn.value = 'Submit';
+        });
+    });
+    
+</script>
+    <script>
+         function toggle() {
+           var list = document.getElementsByClassName("list")[0];
+           var hamburger = document.getElementsByClassName("hamburger")[0];
+           list.classList.toggle("show")
+           hamburger.classList.toggle("active")
+        }
+    const options = {
+      strings: ["Website developer", "Programmer"],
+      typeSpeed: 80, 
+      backSpeed: 80, 
+      backDelay: 1000, 
+      startDelay: 500,
+      loop: true, 
+      showCursor: true,
+    };
+
+    const typed = new Typed("#text", options);
+        </script>
 </body>
 </html>
